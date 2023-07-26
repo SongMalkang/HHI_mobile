@@ -20,6 +20,17 @@ import { SafeAreaInsetsContext } from 'react-native-safe-area-context';
 
 const Stack = createStackNavigator();
 
+function getComponent(routeUrl) {
+  switch (routeUrl) {
+    case '/gas/monitoring':
+      return 'ttesting';
+    case '/gas/eventlog':
+      return 'testing';
+    default:
+      return InitialPage;
+  }
+}
+
 function App() {
   const isDarkMode = useColorScheme() === 'dark';
 
@@ -27,25 +38,33 @@ function App() {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
 
-
   const gasMenuList = [
-    { id : 'Header', Title : '복합 가스 원격 모니터링', routeUrl : '/'},
+    { id : 'g0', title : '복합 가스 원격 모니터링', routeUrl : '/noo'},
+    { id : 'g1', title : 'ㄴ 실시간 가스 현황 조회', routeUrl : '/gas/monitoring' },
+    { id : 'g2', title : 'ㄴ 가스 알람 및 이력 조회', routeUrl : '/gas/eventlog' },
+    { id : 'g3', title : 'ㄴ 가스 감지기 설치/철거 등록', routeUrl : '/gas/device' },
+    { id : 'g4', title : 'ㄴ 가스 감지기 상태 확인', routeUrl : '/gas/status' },
   ];
 
   const valveMenuList = [
-    { id : 'Header', Title : '매니폴드 밸브 원격 모니터링', routeUrl : '/'},
+    { id : 'v0', title : '매니폴드 밸브 원격 모니터링', routeUrl : '/no'},
+    { id : 'v1', title : 'ㄴ 실시간 밸브 장치 상태 조회', routeUrl : '/valve/monitoring' },
+    { id : 'v2', title : 'ㄴ 밸브 제어 이력 조회', routeUrl : '/valve/history' },
+    { id : 'v3', title : 'ㄴ 밸브 원격 제어', routeUrl : '/valve/control' },
   ];
 
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="InitialPage">
-        <Stack.Screen
-          name="InitialPage"
-          options= {{ headerShown: false }}
-          component={InitialPage}
-          gasMenuList={gasMenuList}
-          valveMenuList={valveMenuList}
-        />
+        {[...gasMenuList, ...valveMenuList].map(({ id, title, routeUrl }) => (
+          <Stack.Screen
+            key={id}
+            name={routeUrl}
+            title={title}
+            options= {{ headerShown: false }}
+            component={getComponent(routeUrl)}
+          />
+        ))}
       </Stack.Navigator>
     </NavigationContainer>
   );

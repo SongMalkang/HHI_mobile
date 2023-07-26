@@ -3,9 +3,9 @@ import { View, Text, Image, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import logo from '../assets/logo.png';
 
-const InitialPage = ({gasMenuList, valveMenuList}) => {
+const InitialPage = ({key, name, title}) => {
 
-  console.log(gasMenuList);
+  console.log(key, name, title);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -16,7 +16,7 @@ const InitialPage = ({gasMenuList, valveMenuList}) => {
       </View>
 
       <View style={styles.routeContainer}>
-        <Text>This is the Routing Box</Text>
+        <Text>{title}</Text>
       </View>
 
     </SafeAreaView>
