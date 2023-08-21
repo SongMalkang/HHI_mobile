@@ -3,23 +3,22 @@ import { View, Text, Image, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import logo from '../assets/logo.png';
 
+import React, { Component } from 'react';
+import { WebView } from 'react-native-webview';
+
+class MyWeb extends Component {
+  render() {
+    return (
+      <WebView
+        source={{uri: 'http://10.8.0.34:5173/'}}
+      />
+    );
+  }
+}
+
 const InitialPage = ({key, name, title}) => {
-
-  console.log(key, name, title);
-
   return (
-    <SafeAreaView style={styles.container}>
-
-      <View style={styles.logoContainer}>
-        <Image source={logo} style={styles.logoImageBox} />
-        <Text style={styles.logoTextBox}>외업 가스 안전 관리 시스템</Text>
-      </View>
-
-      <View style={styles.routeContainer}>
-        <Text>{title}</Text>
-      </View>
-
-    </SafeAreaView>
+    <MyWeb />
     );
 };
 

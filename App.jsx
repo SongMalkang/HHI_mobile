@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   SafeAreaView,
   ScrollView,
@@ -7,6 +7,8 @@ import {
   Text,
   useColorScheme,
   View,
+  Alert,
+  BackHandler,
 } from 'react-native';
 
 import { NavigationContainer } from '@react-navigation/native';
@@ -52,6 +54,32 @@ function App() {
     { id : 'v2', title : 'ㄴ 밸브 제어 이력 조회', routeUrl : '/valve/history' },
     { id : 'v3', title : 'ㄴ 밸브 원격 제어', routeUrl : '/valve/control' },
   ];
+
+  useEffect(() => {
+    const backAction = () => {
+      Alert.alert(
+        '앱 종료',
+        '종료하시겠습니까?',
+        [
+          {
+            text: 'Cancel',
+            onPress: () => null,
+            style: 'cancel',
+          },
+          {text: 'YES', onPress: () => BackHandler.exitApp()},
+        ]
+      );
+      return true;
+    };
+
+    const backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      backAction,
+    );
+
+    return () => backHandler.remove();
+  }, []);
+
 
   return (
     <NavigationContainer>
